@@ -11,7 +11,7 @@ class Preview extends React.Component {
 
     if (browserFrame && this.container) {
       browserFrame.style.width = "100%";
-      browserFrame.style.height = "500px";
+      browserFrame.style.height = "100%";
       browserFrame.style.visibility = "visible";
       browserFrame.style.position = "relative";
 
@@ -26,7 +26,7 @@ class Preview extends React.Component {
   }
 
   render() {
-    return <div ref={this.setContainerElement} />;
+    return <div ref={this.setContainerElement} style={this.props.style} />;
   }
 }
 

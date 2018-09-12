@@ -8,9 +8,13 @@ export default class BrowserPreview extends React.PureComponent {
     const { style, ...props } = this.props;
 
     return (
-      <div className={`BrowserPreview container`} style={style} {...props}>
+      <div
+        className={`BrowserPreview container`}
+        style={{ heigh: "100%", display: "flex", flexDirection: "column" }}
+        {...props}
+      >
         <Navigator />
-        <Preview />
+        <Preview style={{ flex: 1 }} />
       </div>
     );
   }
