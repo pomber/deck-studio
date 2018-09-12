@@ -20,7 +20,7 @@ const App = () => (
     style={{ height: "100%" }}
   >
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
-      <FileExplorer style={{ width: 150 }} />
+      {/* <FileExplorer style={{ width: 150 }} /> */}
       <CodeMirror
         style={{
           flex: 1,
