@@ -21,13 +21,13 @@ const App = () => (
   >
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
       {/* <FileExplorer style={{ width: 150 }} /> */}
+      <BrowserPreview style={{ flex: 2, overflow: "hidden" }} />
       <CodeMirror
         style={{
           flex: 1,
           overflow: "hidden"
         }}
       />
-      <BrowserPreview style={{ flex: 2, overflow: "hidden" }} />
     </div>
   </SandpackProvider>
 );

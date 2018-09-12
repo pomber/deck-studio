@@ -1,12 +1,15 @@
 import normalizeNewline from "normalize-newline";
 import mdx from "@mdx-js/mdx";
+import matter from "gray-matter";
 
-const template = slides => `
+const template = (slides, modules) => `
 import React from "react";
 import ReactDOM from "react-dom";
 import { MDXTag } from '@mdx-js/tag';
 import { SlideDeck } from "mdx-deck";
 import { injectGlobal } from "styled-components";
+
+${modules.join("\n")}
 
 class App extends React.Component {
   render () {
@@ -40,7 +43,9 @@ const SLIDEREG = /\n---\n/;
 export async function transpile(code, loaderContext) {
   console.log("transpiling", code);
 
-  const content = code;
+  const { data, content } = matter(code);
+
+  console.log("data", data);
 
   const modules = [];
   const slides = normalizeNewline(content)
@@ -57,7 +62,9 @@ export async function transpile(code, loaderContext) {
     })
     .map(str => str.trim());
 
+  console.log("modules", modules);
+
   return {
-    transpiledCode: template(slides)
+    transpiledCode: template(slides, modules)
   };
 }
