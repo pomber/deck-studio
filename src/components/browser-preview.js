@@ -10,7 +10,12 @@ export default class BrowserPreview extends React.PureComponent {
     return (
       <div
         className={`BrowserPreview container`}
-        style={{ heigh: "100%", display: "flex", flexDirection: "column" }}
+        style={{
+          heigh: "100%",
+          display: "flex",
+          flexDirection: "column",
+          ...style
+        }}
         {...props}
       >
         <Navigator />
