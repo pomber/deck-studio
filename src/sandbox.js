@@ -2,6 +2,7 @@ export const dependencies = {
   "@mdx-js/mdx": "latest",
   "@mdx-js/tag": "latest",
   "mdx-deck": "latest",
+  "mdx-deck-code-surfer": "latest",
   "normalize-newline": "latest",
   "gray-matter": "latest",
   react: "latest",

@@ -1,6 +1,7 @@
 export { dark as theme } from 'mdx-deck/themes'
-import { Appear } from "mdx-deck";
-import { Image } from 'mdx-deck'
+import { Image, Appear } from "mdx-deck";
+import { CodeSurfer } from "mdx-deck-code-surfer";
+import nightOwl from "prism-react-renderer/themes/nightOwl"
 
 # Hi
 
@@ -22,3 +23,10 @@ Appear:
     <li>Three</li>
   </Appear>
 </ul>
+
+---
+
+<CodeSurfer 
+  code="console.log(`Hello`);"
+  theme={nightOwl}
+/>
