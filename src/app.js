@@ -2,10 +2,10 @@ import React from "react";
 import {
   FileExplorer,
   CodeMirror,
-  BrowserPreview,
   TranspiledCodeView,
   SandpackProvider
 } from "react-smooshpack";
+import BrowserPreview from "./components/browser-preview";
 import { dependencies, files, entry } from "./sandbox";
 
 import "react-smooshpack/dist/styles.css";
