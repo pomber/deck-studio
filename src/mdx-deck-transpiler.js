@@ -2,7 +2,7 @@ import normalizeNewline from "normalize-newline";
 import mdx from "@mdx-js/mdx";
 import matter from "gray-matter";
 
-const template = (slides, modules) => `
+const template = (slides, modules, hasTheme) => `
 import React from "react";
 import ReactDOM from "react-dom";
 import { MDXTag } from '@mdx-js/tag';
@@ -16,7 +16,8 @@ class App extends React.Component {
     return (
       <SlideDeck
         {...this.props}
-        slides={[${slides}]}
+        slides={[${slides}]}        
+        ${hasTheme && "theme={theme}"}
       />
     )
   }
@@ -47,12 +48,11 @@ export async function transpile(code, loaderContext) {
 
   console.log("data", data);
 
-  const modules = [];
+  let modules = [];
   const slides = normalizeNewline(content)
     .split(SLIDEREG)
     .map(str => {
       const code = mdx.sync(str, { skipExport: true });
-      console.log(`${str} ===> ${code}`);
       const lines = code.split("\n");
       const tagIndex = lines.findIndex(str => /^</.test(str));
       modules.push(...lines.slice(0, tagIndex).filter(Boolean));
@@ -64,7 +64,15 @@ export async function transpile(code, loaderContext) {
 
   console.log("modules", modules);
 
+  // TODO snapshot test exports
+  const hasTheme = modules.some(
+    m => m.startsWith("export") && m.includes(" theme ")
+  );
+  modules = modules.map(m => m.replace(/^export/, "import"));
+
+  console.log("post", modules);
+
   return {
-    transpiledCode: template(slides, modules)
+    transpiledCode: template(slides, modules, hasTheme)
   };
 }

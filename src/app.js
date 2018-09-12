@@ -1,5 +1,9 @@
 import React from "react";
-import { CodeMirror, SandpackProvider } from "react-smooshpack";
+import {
+  CodeMirror,
+  SandpackProvider,
+  TranspiledCodeView
+} from "react-smooshpack";
 import SplitPane from "react-split-pane";
 import BrowserPreview from "./components/browser-preview";
 import { dependencies, files, entry } from "./sandbox";
