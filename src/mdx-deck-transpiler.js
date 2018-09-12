@@ -27,6 +27,8 @@ injectGlobal\`
   *{box-sizing:border-box}
   body{font-family:system-ui,sans-serif;margin:0}
   html,body{overflow:hidden}
+  /* TODO use showOpenInCodeSandbox: false */
+  iframe {display: none}
 \`
 
 if (typeof document !== 'undefined') {
