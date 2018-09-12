@@ -6,6 +6,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { MDXTag } from '@mdx-js/tag';
 import { SlideDeck } from "mdx-deck";
+import { injectGlobal } from "styled-components";
 
 class App extends React.Component {
   render () {
@@ -17,6 +18,12 @@ class App extends React.Component {
     )
   }
 }
+
+injectGlobal\`
+  *{box-sizing:border-box}
+  body{font-family:system-ui,sans-serif;margin:0}
+  html,body{overflow:hidden}
+\`
 
 if (typeof document !== 'undefined') {
   ReactDOM.render(
