@@ -4,6 +4,7 @@ import {
   SandpackProvider,
   TranspiledCodeView
 } from "react-smooshpack";
+import CodeEditor from "./components/code-editor";
 import SplitPane from "react-split-pane";
 import BrowserPreview from "./components/browser-preview";
 import { dependencies, files, entry } from "./sandbox";
@@ -49,7 +50,7 @@ class App extends React.Component {
               pointerEvents: this.state.isDragging && "none"
             }}
           />
-          <CodeMirror
+          <CodeEditor
             style={{
               overflow: "hidden",
               width: "100%",
