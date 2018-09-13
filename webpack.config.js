@@ -7,12 +7,10 @@ const webpack = require("webpack");
 
 module.exports = (env, argv) => ({
   entry: {
-    main: "./src/index.js",
-    "editor.worker": "monaco-editor/esm/vs/editor/editor.worker.js",
-    "ts.worker": "monaco-editor/esm/vs/language/typescript/ts.worker"
+    main: "./src/index.js"
   },
   output: {
-    path: path.resolve(__dirname, "dist-static"),
+    path: path.resolve(__dirname, "build"),
     filename: "[name].[chunkhash].js",
     publicPath: "/"
   },
@@ -33,7 +31,7 @@ module.exports = (env, argv) => ({
     extensions: [".tsx", ".ts", ".js"]
   },
   plugins: [
-    new CleanWebpackPlugin("dist-static", {}),
+    new CleanWebpackPlugin("build", {}),
     new HtmlWebpackPlugin({
       hash: true,
       template: "./public/index.html",
@@ -41,7 +39,7 @@ module.exports = (env, argv) => ({
       filename: "index.html"
     }),
     new WebpackMd5Hash(),
-    new MonacoWebpackPlugin()
+    new MonacoWebpackPlugin({ languages: ["markdown", "typescript"] })
     // https://github.com/Microsoft/monaco-editor-webpack-plugin/issues/13#issuecomment-390806320
     // new webpack.ContextReplacementPlugin(
     //   /monaco-editor(\\|\/)esm(\\|\/)vs(\\|\/)editor(\\|\/)common(\\|\/)services/,
