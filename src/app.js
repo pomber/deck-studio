@@ -1,11 +1,8 @@
 import React from "react";
-import {
-  CodeMirror,
-  SandpackProvider,
-  TranspiledCodeView
-} from "react-smooshpack";
+import { SandpackProvider, TranspiledCodeView } from "react-smooshpack";
 import SplitPane from "react-split-pane";
 import BrowserPreview from "./components/browser-preview";
+import CodePanel from "./components/code-panel";
 import { dependencies, files, entry } from "./sandbox";
 
 import "react-smooshpack/dist/styles.css";
@@ -49,7 +46,7 @@ class App extends React.Component {
               pointerEvents: this.state.isDragging && "none"
             }}
           />
-          <CodeMirror
+          <CodePanel
             style={{
               overflow: "hidden",
               width: "100%",
