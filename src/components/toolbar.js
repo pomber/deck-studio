@@ -1,6 +1,9 @@
 import React from "react";
 import withSandpack from "./withSandpack";
 
+const apiUrl = "https://deck-studio-publish.now.sh";
+// const apiUrl = "http://localhost:3000";
+
 const getFiles = sandpack =>
   Object.keys(sandpack.files)
     .map(file => ({
@@ -45,7 +48,7 @@ class Toolbar extends React.Component {
             }}
             onClick={() => {
               const files = getFiles(this.props.sandpack);
-              fetch("http://localhost:3000", {
+              fetch(apiUrl, {
                 method: "POST",
                 body: JSON.stringify(files)
               })

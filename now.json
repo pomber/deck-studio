@@ -1,0 +1,21 @@
+{
+  "alias": "deck-studio.now.sh",
+  "public": true,
+  "type": "static",
+  "build": {
+    "env": {
+      "CI": "true"
+    }
+  },
+  "static": {
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "features": {
+    "cloud": "v2"
+  }
+}
