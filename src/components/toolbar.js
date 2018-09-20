@@ -1,6 +1,18 @@
 import React from "react";
 import withSandpack from "./withSandpack";
 
+const getFiles = sandpack =>
+  Object.keys(sandpack.files)
+    .map(file => ({
+      file: file.slice(1),
+      data: sandpack.files[file].code
+    }))
+    .filter(
+      item =>
+        !item.file.startsWith(".codesandbox") &&
+        !["package.json", "Dockerfile", ".babelrc"].includes(item.file)
+    );
+
 class Toolbar extends React.Component {
   render() {
     return (
@@ -32,8 +44,13 @@ class Toolbar extends React.Component {
               cursor: "pointer"
             }}
             onClick={() => {
-              console.log(this.props.sandpack.files);
-              alert("soon...");
+              const files = getFiles(this.props.sandpack);
+              fetch("http://localhost:3000", {
+                method: "POST",
+                body: JSON.stringify(files)
+              })
+                .then(res => res.text())
+                .then(url => window.open(url));
             }}
           >
             PUBLISH
