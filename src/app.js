@@ -1,5 +1,5 @@
 import React from "react";
-import { SandpackProvider, TranspiledCodeView } from "react-smooshpack";
+import { SandpackProvider } from "react-smooshpack";
 import SplitPane from "react-split-pane";
 import BrowserPreview from "./components/browser-preview";
 import CodePanel from "./components/code-panel";
