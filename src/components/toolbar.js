@@ -48,12 +48,16 @@ class Toolbar extends React.Component {
             }}
             onClick={() => {
               const files = getFiles(this.props.sandpack);
+              const popup = window.open("");
               fetch(apiUrl, {
                 method: "POST",
                 body: JSON.stringify(files)
               })
                 .then(res => res.text())
-                .then(url => window.open(url));
+                .then(url => {
+                  popup.location = url;
+                  popup.focus();
+                });
             }}
           >
             PUBLISH
