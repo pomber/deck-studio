@@ -7,6 +7,18 @@ import { dependencies, files, entry } from "./sandbox";
 
 import "react-smooshpack/dist/styles.css";
 
+const resizeEmitter = {
+  listeners: [],
+  subscribe(listener) {
+    this.listeners.push(listener);
+  },
+  trigger() {
+    this.listeners.forEach(cb => cb());
+  }
+};
+
+window.addEventListener("resize", () => resizeEmitter.trigger());
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -37,6 +49,7 @@ class App extends React.Component {
             this.setState({
               isDragging: false
             });
+            resizeEmitter.trigger();
           }}
         >
           <BrowserPreview
@@ -47,6 +60,7 @@ class App extends React.Component {
             }}
           />
           <CodePanel
+            resizeEmitter={resizeEmitter}
             style={{
               overflow: "hidden",
               width: "100%",

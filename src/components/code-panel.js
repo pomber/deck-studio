@@ -1,10 +1,10 @@
 import React from "react";
-import { CodeMirror } from "react-smooshpack";
+import CodeEditor from "./code-editor";
 import Toolbar from "./toolbar";
 
 class CodePanel extends React.Component {
   render() {
-    const { style, ...props } = this.props;
+    const { style, resizeEmitter, ...props } = this.props;
     return (
       <div
         style={{
@@ -17,7 +17,7 @@ class CodePanel extends React.Component {
       >
         <Toolbar />
         <div style={{ flex: 1 }}>
-          <CodeMirror />
+          <CodeEditor resizeEmitter={resizeEmitter} />
         </div>
       </div>
     );
