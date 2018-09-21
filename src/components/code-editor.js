@@ -21,7 +21,8 @@ class CodeEditor extends React.Component {
   };
 
   render() {
-    const { openedPath, files } = this.props.sandpack;
+    const { sandpack, resizeEmitter } = this.props;
+    const { openedPath, files } = sandpack;
     return (
       <MonacoEditor
         height="100%"
@@ -29,6 +30,12 @@ class CodeEditor extends React.Component {
         value={files[openedPath].code}
         onChange={this.onChange}
         language="markdown"
+        editorDidMount={editor => {
+          resizeEmitter.subscribe(() => editor.layout());
+          // editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () => {
+          //   saveEntry();
+          // });
+        }}
       />
     );
   }
