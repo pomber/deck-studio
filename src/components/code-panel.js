@@ -1,5 +1,5 @@
 import React from "react";
-import { CodeMirror } from "react-smooshpack";
+import CodeEditor from "./code-editor";
 import Toolbar from "./toolbar";
 
 class CodePanel extends React.Component {
@@ -17,7 +17,7 @@ class CodePanel extends React.Component {
       >
         <Toolbar />
         <div style={{ flex: 1 }}>
-          <CodeMirror />
+          <CodeEditor />
         </div>
       </div>
     );
