@@ -1,5 +1,7 @@
 import React from "react";
 import withSandpack from "./withSandpack";
+import prettier from "prettier/standalone";
+import markdownPlugin from "prettier/parser-markdown";
 
 const apiUrl = "https://deck-studio-publish.now.sh";
 // const apiUrl = "http://localhost:3000";
@@ -16,6 +18,27 @@ const getFiles = sandpack =>
         !["package.json", "Dockerfile", ".babelrc"].includes(item.file)
     );
 
+const Button = ({ onClick, children }) => (
+  <button
+    style={{
+      transition: "0.3s ease background-color",
+      padding: "2px",
+      margin: "0 0.25rem",
+      backgroundColor: "transparent",
+      border: "0",
+      outline: "0",
+      display: "flex",
+      alignItems: "center",
+      color: "#555",
+      verticalAlign: "middle",
+      cursor: "pointer"
+    }}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
+
 class Toolbar extends React.Component {
   render() {
     return (
@@ -30,39 +53,43 @@ class Toolbar extends React.Component {
           background: "whitesmoke"
         }}
       >
+        <Button
+          onClick={() => {
+            const currentCode = this.props.sandpack.files[
+              this.props.sandpack.openedPath
+            ].code;
+            const newCode = prettier.format(currentCode, {
+              parser: "markdown",
+              plugins: [markdownPlugin]
+            });
+            this.props.sandpack.updateFiles({
+              ...this.props.sandpack.files,
+              [this.props.sandpack.openedPath]: {
+                code: newCode
+              }
+            });
+          }}
+        >
+          PRETTIER
+        </Button>
         <div style={{ flex: 1 }} />
-        <div>
-          <button
-            style={{
-              transition: "0.3s ease background-color",
-              padding: "2px",
-              margin: "0 0.25rem",
-              backgroundColor: "transparent",
-              border: "0",
-              outline: "0",
-              display: "flex",
-              alignItems: "center",
-              color: "#555",
-              verticalAlign: "middle",
-              cursor: "pointer"
-            }}
-            onClick={() => {
-              const files = getFiles(this.props.sandpack);
-              const popup = window.open("");
-              fetch(apiUrl, {
-                method: "POST",
-                body: JSON.stringify(files)
-              })
-                .then(res => res.text())
-                .then(url => {
-                  popup.location = url;
-                  popup.focus();
-                });
-            }}
-          >
-            PUBLISH
-          </button>
-        </div>
+        <Button
+          onClick={() => {
+            const files = getFiles(this.props.sandpack);
+            const popup = window.open("publish");
+            fetch(apiUrl, {
+              method: "POST",
+              body: JSON.stringify(files)
+            })
+              .then(res => res.text())
+              .then(url => {
+                popup.location = url;
+                popup.focus();
+              });
+          }}
+        >
+          PUBLISH
+        </Button>
       </div>
     );
   }
