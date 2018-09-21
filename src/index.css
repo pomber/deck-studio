@@ -60,3 +60,6 @@ body,
 .Resizer.disabled:hover {
   border-color: transparent;
 }
+.Pane {
+  overflow: auto;
+}
