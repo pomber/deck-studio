@@ -36,6 +36,9 @@ export const files = {
   "/deck.mdx": {
     code: require("!raw-loader!./default-deck.mdx")
   },
+  "/components/my-component.js": {
+    code: require("!raw-loader!./my-component.js")
+  },
   "/.babelrc": {
     code: `
     {
