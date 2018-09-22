@@ -2,6 +2,7 @@ import React from "react";
 import withSandpack from "./withSandpack";
 import prettier from "prettier/standalone";
 import markdownPlugin from "prettier/parser-markdown";
+import babylonPlugin from "prettier/parser-babylon";
 
 const apiUrl = "https://deck-studio-publish.now.sh";
 // const apiUrl = "http://localhost:3000";
@@ -59,8 +60,8 @@ class Toolbar extends React.Component {
               this.props.sandpack.openedPath
             ].code;
             const newCode = prettier.format(currentCode, {
-              parser: "markdown",
-              plugins: [markdownPlugin]
+              parser: "mdx",
+              plugins: [markdownPlugin, babylonPlugin]
             });
             this.props.sandpack.updateFiles({
               ...this.props.sandpack.files,
