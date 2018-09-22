@@ -1,7 +1,5 @@
 import React from "react";
 import withSandpack from "./withSandpack";
-import prettier from "prettier/standalone";
-import markdownPlugin from "prettier/parser-markdown";
 
 const apiUrl = "https://deck-studio-publish.now.sh";
 // const apiUrl = "http://localhost:3000";
@@ -53,23 +51,7 @@ class Toolbar extends React.Component {
           background: "whitesmoke"
         }}
       >
-        <Button
-          onClick={() => {
-            const currentCode = this.props.sandpack.files[
-              this.props.sandpack.openedPath
-            ].code;
-            const newCode = prettier.format(currentCode, {
-              parser: "markdown",
-              plugins: [markdownPlugin]
-            });
-            this.props.sandpack.updateFiles({
-              ...this.props.sandpack.files,
-              [this.props.sandpack.openedPath]: {
-                code: newCode
-              }
-            });
-          }}
-        >
+        <Button onClick={() => this.props.onFormat(this.props.sandpack)}>
           PRETTIER
         </Button>
         <div style={{ flex: 1 }} />

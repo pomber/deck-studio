@@ -1,5 +1,6 @@
 import React from "react";
 import MonacoEditor from "react-monaco-editor";
+import { KeyCode, KeyMod } from "monaco-editor";
 
 import withSandpack from "./withSandpack";
 
@@ -21,7 +22,7 @@ class CodeEditor extends React.Component {
   };
 
   render() {
-    const { sandpack, resizeEmitter } = this.props;
+    const { sandpack, resizeEmitter, onSave } = this.props;
     const { openedPath, files } = sandpack;
     return (
       <MonacoEditor
@@ -32,9 +33,9 @@ class CodeEditor extends React.Component {
         language="markdown"
         editorDidMount={editor => {
           resizeEmitter.subscribe(() => editor.layout());
-          // editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () => {
-          //   saveEntry();
-          // });
+          editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () =>
+            onSave(this.props.sandpack)
+          );
         }}
       />
     );
