@@ -1,6 +1,7 @@
 import React from "react";
 import CodeEditor from "./code-editor";
 import Toolbar from "./toolbar";
+import QuickInput from "./quick-input";
 
 import prettier from "prettier/standalone";
 import markdownPlugin from "prettier/parser-markdown";
@@ -33,6 +34,7 @@ class CodePanel extends React.Component {
         }}
         {...props}
       >
+        <QuickInput />
         <Toolbar onFormat={formatCode} />
         <div style={{ flex: 1 }}>
           <CodeEditor resizeEmitter={resizeEmitter} onSave={formatCode} />
