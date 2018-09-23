@@ -22,6 +22,18 @@ const formatCode = sandpack => {
 };
 
 class CodePanel extends React.Component {
+  state = {
+    action: null
+  };
+
+  onAction = action => {
+    if (action === "CANCEL") {
+      this.setState({ action: null });
+    } else {
+      this.setState({ action });
+    }
+  };
+
   render() {
     const { style, resizeEmitter, ...props } = this.props;
     return (
@@ -34,10 +46,14 @@ class CodePanel extends React.Component {
         }}
         {...props}
       >
-        <QuickInput />
-        <Toolbar onFormat={formatCode} />
+        {this.state.action && <QuickInput onAction={this.onAction} />}
+        <Toolbar onFormat={formatCode} onAction={this.onAction} />
         <div style={{ flex: 1 }}>
-          <CodeEditor resizeEmitter={resizeEmitter} onSave={formatCode} />
+          <CodeEditor
+            resizeEmitter={resizeEmitter}
+            onSave={formatCode}
+            onAction={this.onAction}
+          />
         </div>
       </div>
     );

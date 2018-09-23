@@ -7,12 +7,13 @@ const items = [
   { value: "Image" }
 ];
 
-const QuickInput = () => (
+const QuickInput = ({ onAction }) => (
   <div style={{ position: "absolute", top: "50px", right: "50%" }}>
     <Downshift
       onChange={selection => alert(`You selected ${selection.value}`)}
       itemToString={item => (item ? item.value : "")}
       defaultHighlightedIndex={0}
+      onOuterClick={() => onAction("CANCEL")}
       defaultIsOpen
     >
       {({

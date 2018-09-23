@@ -24,12 +24,9 @@ const resizeEmitter = {
 window.addEventListener("resize", () => resizeEmitter.trigger());
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDragging: false
-    };
-  }
+  state = {
+    isDragging: false
+  };
 
   render() {
     return (

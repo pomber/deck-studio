@@ -51,6 +51,9 @@ class Toolbar extends React.Component {
           background: "whitesmoke"
         }}
       >
+        <Button onClick={() => this.props.onAction("NEW_FILE")}>
+          NEW FILE
+        </Button>
         <Button onClick={() => this.props.onFormat(this.props.sandpack)}>
           PRETTIER
         </Button>

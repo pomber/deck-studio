@@ -22,7 +22,7 @@ class CodeEditor extends React.Component {
   };
 
   render() {
-    const { sandpack, resizeEmitter, onSave } = this.props;
+    const { sandpack, resizeEmitter, onSave, onAction } = this.props;
     const { openedPath, files } = sandpack;
     return (
       <MonacoEditor
@@ -35,6 +35,9 @@ class CodeEditor extends React.Component {
           resizeEmitter.subscribe(() => editor.layout());
           editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () =>
             onSave(this.props.sandpack)
+          );
+          editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_N, () =>
+            onAction("NEW_FILE")
           );
         }}
       />
