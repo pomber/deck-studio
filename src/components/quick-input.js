@@ -42,6 +42,7 @@ const Picker = ({ dispatch, options }) => (
               color: "rgb(97, 97, 97)"
             }
           })}
+          autoFocus
           placeholder={options.placeholder}
         />
         <div {...getMenuProps()}>
@@ -101,6 +102,7 @@ class Input extends React.Component {
             boxSizing: "border-box",
             color: "rgb(97, 97, 97)"
           }}
+          autoFocus
           placeholder={options.placeholder}
           onChange={e => this.setState({ text: e.target.value })}
           onKeyPress={e => {

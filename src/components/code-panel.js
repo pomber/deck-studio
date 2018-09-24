@@ -57,6 +57,14 @@ const options = {
     ),
     placeholder: "my-sample",
     doneAction: "CREATE_CODE_SAMPLE"
+  },
+  SHOW_OPEN_FILE: {
+    items: [
+      { action: "OPEN_FILE", label: "deck.mdx" },
+      { action: "NEW_CODE_SAMPLE", label: "Code sample (for Code Surfer)" },
+      { action: "NEW_IMAGE", label: "Image" }
+    ],
+    placeholder: "New ..."
   }
 };
 
@@ -78,8 +86,31 @@ class CodePanel extends React.Component {
       sandpack.files["/samples/" + payload] = { code: "" };
       sandpack.openFile("/samples/" + payload);
       this.setState({ action: null });
+    } else if (action === "OPEN_FILE") {
+      const sandpack = this.props.sandpack;
+      sandpack.openFile("/" + payload.label);
+      this.setState({ action: null });
     } else {
       this.setState({ action });
+    }
+  };
+
+  getAction = () => {
+    const type = this.state.action;
+    if (!type) {
+      return null;
+    } else if (type === "SHOW_OPEN_FILE") {
+      return {
+        items: Object.keys(this.props.sandpack.files)
+          .map(path => path.slice(1))
+          .filter(path => !path.startsWith(".") && path !== "package.json")
+          .map(path => ({
+            label: path,
+            action: "OPEN_FILE"
+          }))
+      };
+    } else {
+      return options[this.state.action];
     }
   };
 
@@ -99,7 +130,7 @@ class CodePanel extends React.Component {
           <QuickInput
             key={this.state.action}
             dispatch={this.onAction}
-            options={options[this.state.action]}
+            options={this.getAction()}
           />
         )}
         <Toolbar onFormat={formatCode} onAction={this.onAction} />

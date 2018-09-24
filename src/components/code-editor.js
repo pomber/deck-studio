@@ -36,8 +36,11 @@ class CodeEditor extends React.Component {
           editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () =>
             onSave(this.props.sandpack)
           );
-          editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_N, () =>
+          editor.addCommand(KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_N, () =>
             onAction("NEW_FILE")
+          );
+          editor.addCommand(KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_P, () =>
+            onAction("SHOW_OPEN_FILE")
           );
         }}
       />
