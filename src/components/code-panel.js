@@ -28,13 +28,35 @@ const options = {
       { action: "NEW_COMPONENT", label: "Component" },
       { action: "NEW_CODE_SAMPLE", label: "Code sample (for Code Surfer)" },
       { action: "NEW_IMAGE", label: "Image" }
-    ]
+    ],
+    placeholder: "New ..."
   },
   NEW_COMPONENT: {
-    items: [
-      { action: "CREATE_COMPONENT", label: "foo.js" },
-      { action: "CREATE_COMPONENT", label: "bar.js" }
-    ]
+    type: "input",
+    label: name => (
+      <span>
+        Pick a name for the file: ./components/
+        <strong style={{ whiteSpace: "nowrap" }}>
+          {name || "my-component"}
+        </strong>
+        .js
+      </span>
+    ),
+    placeholder: "my-component",
+    doneAction: "CREATE_COMPONENT"
+  },
+  NEW_CODE_SAMPLE: {
+    type: "input",
+    label: name => (
+      <span>
+        Pick a name for the file: ./samples/
+        <strong style={{ whiteSpace: "nowrap" }}>
+          {name || "my-sample.js"}
+        </strong>
+      </span>
+    ),
+    placeholder: "my-sample",
+    doneAction: "CREATE_CODE_SAMPLE"
   }
 };
 
@@ -48,8 +70,13 @@ class CodePanel extends React.Component {
       this.setState({ action: null });
     } else if (action === "CREATE_COMPONENT") {
       const sandpack = this.props.sandpack;
-      sandpack.files["/components/" + payload.label] = { code: "" };
-      sandpack.openFile("/components/" + payload.label);
+      sandpack.files["/components/" + payload + ".js"] = { code: "" };
+      sandpack.openFile("/components/" + payload + ".js");
+      this.setState({ action: null });
+    } else if (action === "CREATE_CODE_SAMPLE") {
+      const sandpack = this.props.sandpack;
+      sandpack.files["/samples/" + payload] = { code: "" };
+      sandpack.openFile("/samples/" + payload);
       this.setState({ action: null });
     } else {
       this.setState({ action });
