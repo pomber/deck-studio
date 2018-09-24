@@ -2,6 +2,7 @@ import React from "react";
 import CodeEditor from "./code-editor";
 import Toolbar from "./toolbar";
 import QuickInput from "./quick-input";
+import withSandpack from "./withSandpack";
 
 import prettier from "prettier/standalone";
 import markdownPlugin from "prettier/parser-markdown";
@@ -21,13 +22,34 @@ const formatCode = sandpack => {
   });
 };
 
+const options = {
+  NEW_FILE: {
+    items: [
+      { action: "NEW_COMPONENT", label: "Component" },
+      { action: "NEW_CODE_SAMPLE", label: "Code sample (for Code Surfer)" },
+      { action: "NEW_IMAGE", label: "Image" }
+    ]
+  },
+  NEW_COMPONENT: {
+    items: [
+      { action: "CREATE_COMPONENT", label: "foo.js" },
+      { action: "CREATE_COMPONENT", label: "bar.js" }
+    ]
+  }
+};
+
 class CodePanel extends React.Component {
   state = {
     action: null
   };
 
-  onAction = action => {
+  onAction = (action, payload) => {
     if (action === "CANCEL") {
+      this.setState({ action: null });
+    } else if (action === "CREATE_COMPONENT") {
+      const sandpack = this.props.sandpack;
+      sandpack.files["/components/" + payload.label] = { code: "" };
+      sandpack.openFile("/components/" + payload.label);
       this.setState({ action: null });
     } else {
       this.setState({ action });
@@ -46,7 +68,13 @@ class CodePanel extends React.Component {
         }}
         {...props}
       >
-        {this.state.action && <QuickInput onAction={this.onAction} />}
+        {this.state.action && (
+          <QuickInput
+            key={this.state.action}
+            dispatch={this.onAction}
+            options={options[this.state.action]}
+          />
+        )}
         <Toolbar onFormat={formatCode} onAction={this.onAction} />
         <div style={{ flex: 1 }}>
           <CodeEditor
@@ -60,4 +88,4 @@ class CodePanel extends React.Component {
   }
 }
 
-export default CodePanel;
+export default withSandpack(CodePanel);

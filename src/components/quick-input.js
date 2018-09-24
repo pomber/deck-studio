@@ -1,19 +1,13 @@
 import React from "react";
 import Downshift from "downshift";
 
-const items = [
-  { value: "Component" },
-  { value: "Code sample (for Code Surfer)" },
-  { value: "Image" }
-];
-
-const QuickInput = ({ onAction }) => (
+const QuickInput = ({ dispatch, options }) => (
   <div style={{ position: "absolute", top: "50px", right: "50%" }}>
     <Downshift
-      onChange={selection => alert(`You selected ${selection.value}`)}
-      itemToString={item => (item ? item.value : "")}
+      onChange={selection => dispatch(selection.action, selection)}
+      itemToString={item => (item ? item.label : "")}
       defaultHighlightedIndex={0}
-      onOuterClick={() => onAction("CANCEL")}
+      onOuterClick={() => dispatch("CANCEL")}
       defaultIsOpen
     >
       {({
@@ -52,16 +46,16 @@ const QuickInput = ({ onAction }) => (
             placeholder="New ..."
           />
           <div {...getMenuProps()}>
-            {items
+            {options.items
               .filter(
                 item =>
                   !inputValue ||
-                  item.value.toLowerCase().includes(inputValue.toLowerCase())
+                  item.label.toLowerCase().includes(inputValue.toLowerCase())
               )
               .map((item, index) => (
                 <div
                   {...getItemProps({
-                    key: item.value,
+                    key: item.label,
                     index,
                     item,
                     style: {
@@ -73,7 +67,7 @@ const QuickInput = ({ onAction }) => (
                     }
                   })}
                 >
-                  {item.value}
+                  {item.label}
                 </div>
               ))}
           </div>
