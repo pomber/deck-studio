@@ -76,6 +76,10 @@ class CodePanel extends React.Component {
     action: null
   };
 
+  componentDidMount() {
+    this.props.sandpack.openFile("/deck.mdx");
+  }
+
   onAction = (action, payload) => {
     if (action === "CANCEL") {
       this.setState({ action: null });
