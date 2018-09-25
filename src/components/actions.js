@@ -3,7 +3,7 @@ export default [
   {
     id: "open-file",
     label: "Go to File",
-    keybindings: [KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_P],
+    keybindings: [KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_X],
     contextMenuGroupId: "deck-studio",
 
     // Method that will be executed when the action is triggered.

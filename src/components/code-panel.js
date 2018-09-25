@@ -9,11 +9,12 @@ import markdownPlugin from "prettier/parser-markdown";
 import babylonPlugin from "prettier/parser-babylon";
 
 import actions from "./actions";
+import getLanguage from "./language-detector";
 
 const formatCode = sandpack => {
   const currentCode = sandpack.files[sandpack.openedPath].code;
   const newCode = prettier.format(currentCode, {
-    parser: "mdx",
+    parser: getLanguage(sandpack.openedPath).parser,
     plugins: [markdownPlugin, babylonPlugin]
   });
   sandpack.updateFiles({

@@ -3,6 +3,7 @@ import MonacoEditor from "react-monaco-editor";
 import { KeyCode, KeyMod } from "monaco-editor";
 
 import withSandpack from "./withSandpack";
+import getLanguage from "./language-detector";
 
 const options = {
   minimap: { enabled: false },
@@ -24,13 +25,15 @@ class CodeEditor extends React.Component {
   render() {
     const { sandpack, resizeEmitter, onSave, onAction, actions } = this.props;
     const { openedPath, files } = sandpack;
+    const openedFile = files[openedPath];
+    const language = getLanguage(openedPath).lang;
     return (
       <MonacoEditor
         height="100%"
         options={options}
-        value={files[openedPath].code}
+        value={openedFile.code}
         onChange={this.onChange}
-        language="markdown"
+        language={language === "mdx" ? "markdown" : language}
         editorDidMount={editor => {
           resizeEmitter.subscribe(() => editor.layout());
           editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () =>

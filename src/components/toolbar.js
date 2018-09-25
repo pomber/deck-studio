@@ -90,7 +90,11 @@ class Toolbar extends React.Component {
             >
               New File...
             </MenuItem>
-            <MenuItem onSelect={() => this.props.onAction("SHOW_OPEN_FILE")}>
+            <MenuItem
+              onSelect={() =>
+                setTimeout(() => this.props.onAction("SHOW_OPEN_FILE"), 0)
+              }
+            >
               Go to File...
             </MenuItem>
             <MenuItem onSelect={() => this.props.onFormat(this.props.sandpack)}>
