@@ -6,7 +6,8 @@ export const dependencies = {
   "normalize-newline": "latest",
   "gray-matter": "latest",
   react: "latest",
-  "react-dom": "latest"
+  "react-dom": "latest",
+  "stringify-object": "latest"
 };
 
 const config = {
@@ -36,6 +37,9 @@ export const files = {
   "/deck.mdx": {
     code: require("!raw-loader!./default-deck.mdx")
   },
+  "/.entry.js": {
+    code: require("!raw-loader!./.entry.js")
+  },
   "/components/my-component.js": {
     code: require("!raw-loader!./my-component.js")
   },
@@ -48,4 +52,4 @@ export const files = {
   }
 };
 
-export const entry = "/deck.mdx";
+export const entry = "/.entry.js";
