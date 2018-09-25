@@ -8,6 +8,8 @@ import prettier from "prettier/standalone";
 import markdownPlugin from "prettier/parser-markdown";
 import babylonPlugin from "prettier/parser-babylon";
 
+import actions from "./actions";
+
 const formatCode = sandpack => {
   const currentCode = sandpack.files[sandpack.openedPath].code;
   const newCode = prettier.format(currentCode, {
@@ -139,6 +141,7 @@ class CodePanel extends React.Component {
             resizeEmitter={resizeEmitter}
             onSave={formatCode}
             onAction={this.onAction}
+            actions={actions}
           />
         </div>
       </div>

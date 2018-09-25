@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reach/menu-button": "^0.1.7",
     "downshift": "^2.2.2",
     "monaco-editor": "^0.14.3",
     "prettier": "./lib/prettier",
