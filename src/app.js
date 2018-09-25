@@ -1,5 +1,9 @@
 import React from "react";
-import { SandpackProvider } from "react-smooshpack";
+import {
+  SandpackProvider,
+  FileExplorer,
+  TranspiledCodeView
+} from "react-smooshpack";
 import SplitPane from "react-split-pane";
 import BrowserPreview from "./components/browser-preview";
 import CodePanel from "./components/code-panel";
@@ -20,12 +24,9 @@ const resizeEmitter = {
 window.addEventListener("resize", () => resizeEmitter.trigger());
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDragging: false
-    };
-  }
+  state = {
+    isDragging: false
+  };
 
   render() {
     return (
@@ -59,15 +60,32 @@ class App extends React.Component {
               pointerEvents: this.state.isDragging && "none"
             }}
           />
-          <CodePanel
-            resizeEmitter={resizeEmitter}
-            style={{
-              overflow: "hidden",
-              width: "100%",
-              height: "100%",
-              pointerEvents: this.state.isDragging && "none"
+          <SplitPane
+            split="vertical"
+            defaultSize="100%"
+            onDragStarted={() => {
+              this.setState({
+                isDragging: true
+              });
             }}
-          />
+            onDragFinished={() => {
+              this.setState({
+                isDragging: false
+              });
+              resizeEmitter.trigger();
+            }}
+          >
+            <CodePanel
+              resizeEmitter={resizeEmitter}
+              style={{
+                overflow: "hidden",
+                width: "100%",
+                height: "100%",
+                pointerEvents: this.state.isDragging && "none"
+              }}
+            />
+            <FileExplorer style={{ height: "100%" }} />
+          </SplitPane>
         </SplitPane>
       </SandpackProvider>
     );
