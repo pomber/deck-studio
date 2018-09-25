@@ -1,5 +1,26 @@
 import React from "react";
 import Downshift from "downshift";
+import styled from "styled-components";
+
+const Root = styled.div({
+  color: "rgb(97, 97, 97)",
+  backgroundColor: "rgb(255, 255, 254)",
+  boxShadow: "rgb(168, 168, 168) 0px 5px 8px",
+  position: "absolute",
+  width: "300px",
+  zIndex: 2000,
+  paddingBottom: "6px",
+  left: "50%",
+  marginLeft: "-150px"
+});
+
+const InnerInput = styled.input({
+  width: "calc(100% - 8px)",
+  margin: "4px",
+  padding: "4px",
+  boxSizing: "border-box",
+  color: "rgb(97, 97, 97)"
+});
 
 const Picker = ({ dispatch, options }) => (
   <Downshift
@@ -17,31 +38,9 @@ const Picker = ({ dispatch, options }) => (
       inputValue,
       highlightedIndex
     }) => (
-      <div
-        {...getRootProps({
-          style: {
-            color: "rgb(97, 97, 97)",
-            backgroundColor: "rgb(255, 255, 254)",
-            boxShadow: "rgb(168, 168, 168) 0px 5px 8px",
-            position: "absolute",
-            width: "300px",
-            zIndex: 2000,
-            paddingBottom: "6px",
-            left: "50%",
-            marginLeft: "-150px"
-          }
-        })}
-      >
-        <input
-          {...getInputProps({
-            style: {
-              width: "calc(100% - 8px)",
-              margin: "4px",
-              padding: "4px",
-              boxSizing: "border-box",
-              color: "rgb(97, 97, 97)"
-            }
-          })}
+      <Root {...getRootProps()}>
+        <InnerInput
+          {...getInputProps()}
           autoFocus
           placeholder={options.placeholder}
         />
@@ -71,7 +70,7 @@ const Picker = ({ dispatch, options }) => (
               </div>
             ))}
         </div>
-      </div>
+      </Root>
     )}
   </Downshift>
 );
@@ -81,27 +80,8 @@ class Input extends React.Component {
   render() {
     const { options, dispatch } = this.props;
     return (
-      <div
-        style={{
-          color: "rgb(97, 97, 97)",
-          backgroundColor: "rgb(255, 255, 254)",
-          boxShadow: "rgb(168, 168, 168) 0px 5px 8px",
-          position: "absolute",
-          width: "300px",
-          zIndex: 2000,
-          paddingBottom: "6px",
-          left: "50%",
-          marginLeft: "-150px"
-        }}
-      >
-        <input
-          style={{
-            width: "calc(100% - 8px)",
-            margin: "4px",
-            padding: "4px",
-            boxSizing: "border-box",
-            color: "rgb(97, 97, 97)"
-          }}
+      <Root>
+        <InnerInput
           autoFocus
           placeholder={options.placeholder}
           onChange={e => this.setState({ text: e.target.value })}
@@ -114,7 +94,7 @@ class Input extends React.Component {
         <div style={{ padding: "2px 10px" }}>
           {options.label(this.state.text)}
         </div>
-      </div>
+      </Root>
     );
   }
 }

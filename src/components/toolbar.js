@@ -25,27 +25,6 @@ const getFiles = sandpack =>
         !["package.json", "Dockerfile", ".babelrc"].includes(item.file)
     );
 
-const Button = ({ onClick, children }) => (
-  <button
-    style={{
-      transition: "0.3s ease background-color",
-      padding: "2px",
-      margin: "0 0.25rem",
-      backgroundColor: "transparent",
-      border: "0",
-      outline: "0",
-      display: "flex",
-      alignItems: "center",
-      color: "#555",
-      verticalAlign: "middle",
-      cursor: "pointer"
-    }}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-);
-
 class Toolbar extends React.Component {
   render() {
     return (
@@ -104,7 +83,11 @@ class Toolbar extends React.Component {
             </svg>
           </MenuButton>
           <MenuList style={{ padding: 0, marginTop: 6 }}>
-            <MenuItem onSelect={() => this.props.onAction("NEW_FILE")}>
+            <MenuItem
+              onSelect={() =>
+                setTimeout(() => this.props.onAction("NEW_FILE"), 0)
+              }
+            >
               New File...
             </MenuItem>
             <MenuItem onSelect={() => this.props.onAction("SHOW_OPEN_FILE")}>
@@ -130,6 +113,7 @@ class Toolbar extends React.Component {
             >
               Publish
             </MenuItem>
+            <div style={{ borderTop: "1px solid hsla(0, 0%, 0%, 0.25)" }} />
             <MenuLink
               component="a"
               href="https://github.com/pomber/deck-studio"
