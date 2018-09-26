@@ -9,6 +9,7 @@ import {
   MenuLink
 } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
+import ThreePointsIcon from "./three-points-icon";
 
 const apiUrl = "https://deck-studio-publish.now.sh";
 // const apiUrl = "http://localhost:3000";
@@ -57,30 +58,7 @@ class Toolbar extends React.Component {
               cursor: "pointer"
             }}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 4.075 17.949"
-              style={{ height: "16px", width: "16px", display: "block" }}
-            >
-              <circle
-                cx="2.038"
-                cy="2.668"
-                r="1.852"
-                style={{ fill: "currentcolor" }}
-              />
-              <circle
-                cx="2.038"
-                cy="8.974"
-                r="1.852"
-                style={{ fill: "currentcolor" }}
-              />
-              <circle
-                cx="2.038"
-                cy="15.28"
-                r="1.852"
-                style={{ fill: "currentcolor" }}
-              />
-            </svg>
+            <ThreePointsIcon />
           </MenuButton>
           <MenuList style={{ padding: 0, marginTop: 6 }}>
             <MenuItem
