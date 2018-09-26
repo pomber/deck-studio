@@ -1,13 +1,9 @@
 import React from "react";
-import {
-  SandpackProvider,
-  FileExplorer,
-  TranspiledCodeView
-} from "react-smooshpack";
+import { SandpackProvider, FileExplorer } from "react-smooshpack";
 import SplitPane from "react-split-pane";
 import BrowserPreview from "./components/browser-preview";
 import CodePanel from "./components/code-panel";
-import { dependencies, files, entry } from "./sandbox";
+import { dependencies, files, entry } from "./sandbox/sandbox";
 
 import "react-smooshpack/dist/styles.css";
 
