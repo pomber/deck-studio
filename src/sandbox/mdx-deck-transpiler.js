@@ -12,11 +12,15 @@ export async function transpile(code, loaderContext) {
   const slides = normalizeNewline(content)
     .split(SLIDEREG)
     .map(str => {
+      console.log("str", str);
       const code = mdx.sync(str, { skipExport: true });
+      console.log("code", code);
       const lines = code.split("\n");
       const tagIndex = lines.findIndex(str => /^</.test(str));
       modules.push(...lines.slice(0, tagIndex).filter(Boolean));
+      console.log("modules", modules);
       const jsx = lines.slice(tagIndex).join("\n");
+      console.log("jsx", jsx);
 
       return `({ components, ...props }) => ${jsx}`;
     })

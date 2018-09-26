@@ -40,8 +40,23 @@ export const files = {
   "/.entry.js": {
     code: require("!raw-loader!./.entry.js")
   },
-  "/components/my-component.js": {
-    code: require("!raw-loader!./my-component.js")
+  "/src/index.js": {
+    code: require("!raw-loader!./src/index.js")
+  },
+  "/src/theme.js": {
+    code: require("!raw-loader!./src/theme.js")
+  },
+  "/src/bg-image.js": {
+    code: require("!raw-loader!./src/bg-image.js")
+  },
+  "/src/layout.js": {
+    code: require("!raw-loader!./src/layout.js")
+  },
+  "/src/layout-no-footer.js": {
+    code: require("!raw-loader!./src/layout.js")
+  },
+  "/src/Split.js": {
+    code: require("!raw-loader!./src/layout.js")
   },
   "/.babelrc": {
     code: `

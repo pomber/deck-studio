@@ -1,44 +1,396 @@
-export { dark as theme } from "mdx-deck/themes";
-import { Image, Appear } from "mdx-deck";
-import { CodeSurfer } from "mdx-deck-code-surfer";
-import nightOwl from "prism-react-renderer/themes/nightOwl";
-import MyComponent from "./components/my-component";
+export { default as theme } from './src/index'
+import { Head, Image } from 'mdx-deck'
+import nightOwl from "prism-react-renderer/themes/nightOwl"
+import { CodeSurfer } from "mdx-deck-code-surfer"
+import {LayoutNoFooter, Layout, Split, BGImage} from './src/index'
 
-# Hi
+
+<Head>
+  <title>GraphQL + Apollo + Vue = Magic</title>
+</Head>
+
+export default Layout
+
+# GraphQL + Apollo + Vue = Magic
+
+---
+
+export default LayoutNoFooter
+
+<BGImage src="https://picsum.photos/800/600/?image=1062" />
+
+
+---
+
+export default Layout
+
+# I really love GraphQL
+
+
+---
+
+export default Split
+
+<img src="https://picsum.photos/800/600/?image=1062"/>
+
+# GraphQL is Bae
+
+---
+
+export default Layout
+
+# My name is Sara
+
+---
+
+export default Split
+
+<img src="https://picsum.photos/800/600/?image=1062"/>
+
+
+* Developer Advocate at YLD
+* Really into shitty movies
+* Really into football
 
 ---
 
 
-Foo
+export default Layout
+
+# I Adore Vue
 
 ---
 
-<Image src="https://picsum.photos/800/600/?image=1062" />
+export default Layout
+
+# I feel like Vue is like the Harry Potter of JS Libraries
 
 ---
 
-<MyComponent>Something</MyComponent>
+export default Layout
+
+# Have you ever met anyone that hates Harry Potter ?
+
+
 
 ---
 
-Appear:
+export default Layout
 
-<ul>
-  <Appear>
-    <li>One</li>
-    <li>Two</li>
-    <li>Three</li>
-  </Appear>
-</ul>
+# Point Proven
 
 ---
 
-<CodeSurfer code="console.log(`Hello`);" theme={nightOwl} />
+export default Layout
+
+# 🦄🎉🏳️‍🌈🎉🦄
 
 ---
 
-Foo
+
+export default Layout
+
+
+# How?
 
 ---
 
-Bar
+
+<CodeSurfer
+  theme={nightOwl}
+  lang="bash"
+  code={`
+    npm i vue-apollo apollo-boost graphql
+    \n
+    # yarn add vue-apollo apollo-boost graphql
+  `}
+/>
+---
+
+<CodeSurfer
+  theme={nightOwl}
+  lang="javascript"
+  steps={[
+    { lines: [4], notes: "Import the Apollo Client" },
+    { lines: [5], notes: "Import Vue Apollo for using Apollo with vue" },
+    { lines: [8, 12, 9, 10, 11], notes: "Create the provider and give it the URL" },
+    { lines: [15], notes: "Tell Vue to use Apollo" },
+    { lines: [16, 17,18,19,20], notes: "Mount Vue" }
+  ]}
+  code={`
+    import Vue from "vue"
+    import App from "./App"
+    import ApolloClient from "apollo-boost"
+    import VueApollo from "vue-apollo"
+    \n
+    const apolloProvider = new VueApollo({
+      defaultClient: new ApolloClient({
+        uri: "https://api.graphcms.com/simple/v1/awesomeTalksClone"
+      })
+    })
+    \n
+    Vue.use(VueApollo)
+    new Vue({
+      el: "#app",
+      provide: apolloProvider.provide(),
+      render: h => h(App)
+    })
+  `}
+/>
+
+---
+
+
+export default Layout
+
+# Done
+
+---
+
+export default Layout
+
+# Let's Query Some Things!
+
+---
+
+<CodeSurfer
+  theme={nightOwl}
+  lang="javascript"
+  code={`
+import { gql } from "apollo-boost"
+\n
+export default gql\`
+  query allSpeakers {
+    allSpeakers {
+      id
+      name
+      photo {
+        url
+      }
+    }
+  }
+\`
+  `}
+/>
+
+---
+
+export default Layout
+
+# Query Component
+
+---
+
+
+<CodeSurfer
+theme={nightOwl}
+lang="markup"
+steps={[
+  { lines: [3, 17], notes: "Import the query" },
+  { lines: [4, 16], notes: "Get the result in the template" },
+  { lines: [5], notes: "Check if loading" },
+  { lines: [6], notes: "Check if error" },
+  { lines: [7, 12], notes: "We have Data" },
+  { lines: [8, 11], notes: "Loop over the data" },
+  { lines: [9, 10], notes: "Show the user the data" },
+]}
+code={`
+  <template>
+    <ApolloQuery :query="require('../queries/SPEAKERS.gql').default">
+      <template slot-scope="{ result: { loading, error, data } }">
+        <h3 v-if="loading"> Loading </h3>
+        <h3 v-if="error"> Oh No :( </h3>
+        <ul v-if="data.allSpeakers.length">
+          <li v-for="s in data.allSpeakers" :key="s.id">
+            <img :src="s.photo.url" :alt="s.name" />
+            {{s.name}}
+          </li>
+        </ul>
+        <section v-else class="empty">
+          No Speakers
+        </section>
+      </template>
+    </ApolloQuery>
+  </template>
+  `}
+/>
+
+---
+
+# Variables ?
+
+---
+export default Layout
+
+
+<CodeSurfer
+  theme={nightOwl}
+  lang="javascript"
+  code={`
+import { gql } from "apollo-boost"
+\n
+export default gql\`
+  query allSpeakers($name: String) {
+    allSpeakers(filter: { name_contains: $name }) {
+      id
+      name
+      photo {
+        url
+      }
+    }
+  }
+\`
+  `}
+/>
+
+---
+
+<CodeSurfer
+theme={nightOwl}
+lang="markup"
+steps={[
+  { lines: [4], notes: "Add an input with a v-model" },
+  { lines: [6], notes: "Import Query" },
+  { lines: [7], notes: "Set the variables" },
+]}
+code={`
+  <template>
+    <main>
+      <input type="text" placeholder="Search them names" v-model="search" />
+      <ApolloQuery
+        :query="require('../queries/SPEAKERS.gql').default"
+        :variables="{ name: search }">
+        <template slot-scope="{ result: { loading, error, data } }">
+          <h3 v-if="loading"> Loading </h3>
+          <h3 v-if="error"> Oh No :( </h3>
+          <ul v-if="data.allSpeakers.length">
+            <li v-for="s in data.allSpeakers" :key="s.id">
+              <img :src="s.photo.url" :alt="s.name" />
+              {{s.name}}
+            </li>
+          </ul>
+          <section v-else class="empty">
+            No Speakers match your search
+          </section>
+        </template>
+      </ApolloQuery>
+    </main>
+  </template>
+  `}
+/>
+
+---
+
+
+export default Layout
+
+# Mutations?
+
+---
+export default Layout
+
+# Mutation component!!
+
+---
+
+
+<CodeSurfer
+  theme={nightOwl}
+  lang="javascript"
+  code={`
+import { gql } from "apollo-boost"
+\n
+export default gql\`
+  mutation createSpeaker($name: String!) {
+    createSpeakers(name: $name) {
+      id
+      name
+    }
+  }
+\`
+  `}
+/>
+
+---
+
+<CodeSurfer
+  theme={nightOwl}
+  lang="markup"
+  steps={[
+    { lines: [4], notes: "Import Mutation" },
+    { lines: [5, 10], notes: "Set the variables" },
+    { lines: [9], notes: "Run the mutation function on submit" }
+  ]}
+  code={`
+  <template>
+    <ApolloMutation
+       :mutation=“require('../queries/ADD_SPEAKER.gql').default"
+       :variables="{ name }”
+       :update=“onUpdate"
+      >
+      <template slot-scope="{ mutate, loading, error }">
+        <form @submit.prevent="mutate">
+          <input type="text" placeholder=“Name" v-model="name" />
+          <button type="submit">Add Speaker</button>
+          <h3 v-if="error">Failed</h3>
+          <h3 v-if="loading">Loading</h3>
+        </form>
+      </template>
+    </ApolloMutation>
+  </template>
+  `}
+/>
+
+---
+
+export default Layout
+
+# The Update Function
+
+---
+
+<CodeSurfer
+  theme={nightOwl}
+  lang="javascript"
+  code={`
+  methods: {
+    onUpdate(cache, { data: { createSpeaker }}) {
+      const { allSpeakers } = cache.readQuery({ query: SPEAKERS })
+      cache.writeQuery({
+        query: SPEAKERS,
+        data: {
+          allSpeakers: allSpeakers.concat({
+            ... createSpeaker,
+            photo: {
+              url: 'http://placekitten.com/100/100',
+              __typename: 'Assets',
+            },
+          }),
+        },
+      })
+    },
+  }
+  `}
+/>
+
+---
+
+# Demo
+
+### [https://codesandbox.io/s/lpoy839pm](https://codesandbox.io/s/lpoy839pm)
+
+---
+
+
+# Demo with Local State
+
+### [https://codesandbox.io/s/x2jr96r8pp](https://codesandbox.io/s/x2jr96r8pp)
+
+---
+
+export default LayoutNoFooter
+
+<BGImage src="https://picsum.photos/800/600/?image=1062"/>
+
+# Thank You 🇬🇧󠁢󠁥󠁮󠁧󠁿
+### [https://vue-apollo-magic.now.sh/](https://vue-apollo-magic.now.sh/)
