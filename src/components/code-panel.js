@@ -15,7 +15,9 @@ const formatCode = sandpack => {
   const currentCode = sandpack.files[sandpack.openedPath].code;
   const newCode = prettier.format(currentCode, {
     parser: getLanguage(sandpack.openedPath).parser,
-    plugins: [markdownPlugin, babylonPlugin]
+    plugins: [markdownPlugin, babylonPlugin],
+    // semi should be false for mdx (see https://github.com/mdx-js/mdx/issues/277)
+    semi: false
   });
   sandpack.updateFiles({
     ...sandpack.files,
@@ -75,6 +77,10 @@ class CodePanel extends React.Component {
   state = {
     action: null
   };
+
+  componentDidMount() {
+    this.props.sandpack.openFile("/deck.mdx");
+  }
 
   onAction = (action, payload) => {
     if (action === "CANCEL") {
