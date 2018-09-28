@@ -124,15 +124,15 @@ class CodePanel extends React.Component {
   };
 
   render() {
-    const { style, resizeEmitter, ...props } = this.props;
+    const { style, className, resizeEmitter, ...props } = this.props;
     return (
       <div
         style={{
           heigh: "100%",
           display: "flex",
-          flexDirection: "column",
-          ...style
+          flexDirection: "column"
         }}
+        className={className}
         {...props}
       >
         {this.state.action && (
