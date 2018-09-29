@@ -1,9 +1,10 @@
 import React from "react";
 import MonacoEditor from "react-monaco-editor";
-import { KeyCode, KeyMod } from "monaco-editor";
 
 import withSandpack from "./utils/withSandpack";
 import getLanguage from "./utils/language-detector";
+
+import actions from "./actions";
 
 const options = {
   minimap: { enabled: false },
@@ -36,13 +37,12 @@ class CodeEditor extends React.Component {
         language={language === "mdx" ? "markdown" : language}
         editorDidMount={editor => {
           resizeEmitter.subscribe(() => editor.layout());
-          editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () => dispatch({}));
-          editor.addCommand(KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_N, () =>
-            dispatch({})
-          );
-          editor.addCommand(KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_P, () =>
-            dispatch({})
-          );
+
+          actions
+            .filter(action => action.keybindings)
+            .forEach(action =>
+              editor.addCommand(action.keybindings[0], () => dispatch(action))
+            );
           // actions.forEach(action => editor.addAction(action));
         }}
       />
