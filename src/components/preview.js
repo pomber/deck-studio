@@ -1,5 +1,5 @@
 import React from "react";
-import withSandpack from "./withSandpack";
+import withSandpack from "../utils/withSandpack";
 
 class Preview extends React.Component {
   setContainerElement = el => {

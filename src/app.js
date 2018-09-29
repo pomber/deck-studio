@@ -1,7 +1,7 @@
 import React from "react";
 import { SandpackProvider, FileExplorer } from "react-smooshpack";
 import BrowserPreview from "./components/browser-preview";
-import CodePanel from "./components/code-panel";
+import CodePanel from "./code-panel";
 import { dependencies, files, entry } from "./sandbox/sandbox";
 import TripleVerticalSplit from "./utils/triple-vertical-split";
 

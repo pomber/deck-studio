@@ -2,14 +2,14 @@ import React from "react";
 import CodeEditor from "./code-editor";
 import Toolbar from "./toolbar";
 import QuickInput from "./quick-input";
-import withSandpack from "./withSandpack";
+import withSandpack from "../utils/withSandpack";
 
 import prettier from "prettier/standalone";
 import markdownPlugin from "prettier/parser-markdown";
 import babylonPlugin from "prettier/parser-babylon";
 
 import actions from "./actions";
-import getLanguage from "./language-detector";
+import getLanguage from "../utils/language-detector";
 
 const formatCode = sandpack => {
   const currentCode = sandpack.files[sandpack.openedPath].code;

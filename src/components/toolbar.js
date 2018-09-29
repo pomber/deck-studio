@@ -1,5 +1,5 @@
 import React from "react";
-import withSandpack from "./withSandpack";
+import withSandpack from "../utils/withSandpack";
 
 import {
   Menu,
@@ -9,7 +9,7 @@ import {
   MenuLink
 } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
-import ThreePointsIcon from "./three-points-icon";
+import ThreePointsIcon from "../utils/three-points-icon";
 
 const apiUrl = "https://deck-studio-publish.now.sh";
 // const apiUrl = "http://localhost:3000";
