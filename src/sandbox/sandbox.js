@@ -32,7 +32,7 @@ export const files = {
     code: JSON.stringify(config)
   },
   "/.codesandbox/transpilers/mdx-deck-transpiler.js": {
-    code: require("raw-loader!./mdx-deck-transpiler.js")
+    code: require("!raw-loader!./mdx-deck-transpiler.js")
   },
   "/deck.mdx": {
     code: require("!raw-loader!./default-deck.mdx")
