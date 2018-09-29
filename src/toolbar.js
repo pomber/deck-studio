@@ -61,6 +61,7 @@ class Toolbar extends React.Component {
             <div style={{ borderTop: "1px solid hsla(0, 0%, 0%, 0.25)" }} />
             <MenuLink
               component="a"
+              to=""
               href="https://github.com/pomber/deck-studio"
             >
               GitHub
