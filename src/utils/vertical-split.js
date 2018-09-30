@@ -6,7 +6,7 @@ const Pane = styled.div`
   overflow: hidden;
   height: 100%;
   width: 100%;
-  pointerevents: ${props => props.isDragging && "none"};
+  pointer-events: ${props => props.isDragging && "none"};
 `;
 
 const resizeEmitter = {
