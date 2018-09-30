@@ -1,0 +1,15 @@
+{
+  "templateName": "mdx-deck",
+  "templateColor": "#222",
+  "sandpack": {
+    "defaultExtensions": ["js", "jsx", "ts", "tsx", "json"],
+    "aliases": {},
+    "preInstalledDependencies": [],
+    "transpilers": {
+      "\\.mdx$": ["./transpilers/mdx-deck-transpiler", "codesandbox:babel"],
+      "\\.jsx?$": ["codesandbox:babel"],
+      "\\.json$": ["codesandbox:json"],
+      ".*": ["codesandbox:raw"]
+    }
+  }
+}

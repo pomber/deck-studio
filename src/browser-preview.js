@@ -5,18 +5,16 @@ import { Navigator } from "react-smooshpack";
 
 export default class BrowserPreview extends React.PureComponent {
   render() {
-    const { style, ...props } = this.props;
+    const { className } = this.props;
 
     return (
       <div
-        className={`BrowserPreview container`}
+        className={`BrowserPreview container ${className}`}
         style={{
           heigh: "100%",
           display: "flex",
-          flexDirection: "column",
-          ...style
+          flexDirection: "column"
         }}
-        {...props}
       >
         <Navigator />
         <Preview style={{ flex: 1 }} />

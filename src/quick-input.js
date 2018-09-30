@@ -99,14 +99,15 @@ class Input extends React.Component {
   }
 }
 
-const QuickInput = ({ options, ...props }) => (
-  <div style={{ position: "absolute", top: "50px", right: "50%" }}>
-    {options.type === "input" ? (
-      <Input {...props} options={options} />
-    ) : (
-      <Picker {...props} options={options} />
-    )}
-  </div>
-);
+const QuickInput = ({ options, ...props }) =>
+  !options ? null : (
+    <div style={{ position: "absolute", top: "50px", right: "50%" }}>
+      {options.type === "input" ? (
+        <Input {...props} options={options} />
+      ) : (
+        <Picker {...props} options={options} />
+      )}
+    </div>
+  );
 
 export default QuickInput;
