@@ -5,8 +5,6 @@ import CodePanel from "./code-panel";
 import { files, entry } from "./sandbox";
 import TripleVerticalSplit from "./utils/triple-vertical-split";
 
-import "react-smooshpack/dist/styles.css";
-
 class App extends React.Component {
   render() {
     return (

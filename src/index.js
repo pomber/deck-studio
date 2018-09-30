@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "react-smooshpack/dist/styles.css";
 
 const pathname = window.location.pathname;
 
