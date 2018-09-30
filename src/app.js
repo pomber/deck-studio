@@ -5,6 +5,11 @@ import CodePanel from "./code-panel";
 import { files, entry } from "./sandbox";
 import TripleVerticalSplit from "./utils/triple-vertical-split";
 
+// TODO this breaks with webpack 4 because of "sideEffects: false" (https://github.com/facebook/create-react-app/issues/5140)
+// PR: https://github.com/CompuIves/codesandbox-client/pull/1133
+// import "react-smooshpack/dist/styles.css";
+import "./react-smooshpack/styles.css";
+
 class App extends React.Component {
   render() {
     return (
