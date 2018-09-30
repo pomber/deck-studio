@@ -23,6 +23,7 @@
     "analyze": "node analyze-bundle"
   },
   "devDependencies": {
+    "babel-plugin-preval": "^3.0.1",
     "raw-loader": "^0.5.1",
     "webpack-bundle-analyzer": "^3.0.2"
   },
