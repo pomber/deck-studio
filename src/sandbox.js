@@ -25,16 +25,4 @@ const walk = (root, dir, files = {}) => {
 module.exports = walk("src/sandbox");
 `;
 
-export const dependencies = {
-  "@mdx-js/mdx": "latest",
-  "@mdx-js/tag": "latest",
-  "mdx-deck": "latest",
-  "mdx-deck-code-surfer": "latest",
-  "normalize-newline": "latest",
-  "gray-matter": "latest",
-  react: "latest",
-  "react-dom": "latest",
-  "stringify-object": "latest"
-};
-
 export const entry = "/.entry.js";

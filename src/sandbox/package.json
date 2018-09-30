@@ -1,0 +1,15 @@
+{
+  "name": "run",
+  "main": "/.entry.js",
+  "dependencies": {
+    "@mdx-js/mdx": "latest",
+    "@mdx-js/tag": "latest",
+    "mdx-deck": "latest",
+    "mdx-deck-code-surfer": "latest",
+    "normalize-newline": "latest",
+    "gray-matter": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "stringify-object": "latest"
+  }
+}
