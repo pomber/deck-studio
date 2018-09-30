@@ -43,6 +43,18 @@ const ThreePointsButton = styled(MenuButton).attrs({
   }
 `;
 
+const ActionItem = styled(MenuItem)`
+  display: flex;
+  & > span:first-child {
+    flex: 1;
+  }
+  & > span:nth-child(2) {
+    padding-left: 20px;
+    opacity: 0.6;
+    font-size: 12px;
+  }
+`;
+
 class Toolbar extends React.Component {
   render() {
     const { dispatch } = this.props;
@@ -53,10 +65,10 @@ class Toolbar extends React.Component {
           <ThreePointsButton />
           <MenuList style={{ padding: 0, marginTop: 6 }}>
             {actions.filter(action => action.showInMenu).map(action => (
-              <MenuItem key={action.id} onSelect={() => dispatch(action)}>
-                {action.label}
-                <span>KEY</span>
-              </MenuItem>
+              <ActionItem key={action.id} onSelect={() => dispatch(action)}>
+                <span>{action.label}</span>
+                {action.shortcutLabel && <span>{action.shortcutLabel}</span>}
+              </ActionItem>
             ))}
             <div style={{ borderTop: "1px solid hsla(0, 0%, 0%, 0.25)" }} />
             <MenuLink

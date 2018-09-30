@@ -22,9 +22,10 @@ const getFiles = sandpack =>
 const actions = [
   {
     id: "new-file-options",
-    label: "New File ...",
+    label: "New File...",
     showInMenu: true,
     keybindings: [KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_N],
+    shortcutLabel: "Ctrl+Alt+N",
     run: ({ setUserOptions }) => {
       setUserOptions({
         items: [
@@ -101,6 +102,7 @@ const actions = [
     label: "Go to File...",
     showInMenu: true,
     keybindings: [KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_P],
+    shortcutLabel: "Ctrl+Alt+P",
     run: ({ sandpack, setUserOptions }) => {
       setUserOptions({
         items: Object.keys(sandpack.files)
@@ -125,6 +127,7 @@ const actions = [
     label: "Run Prettier",
     showInMenu: true,
     keybindings: [KeyMod.CtrlCmd | KeyCode.KEY_S],
+    shortcutLabel: "Ctrl+S",
     run: ({ sandpack }) => {
       const { parser } = getLanguage(sandpack.openedPath);
       const currentCode = sandpack.files[sandpack.openedPath].code;
