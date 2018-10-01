@@ -24,6 +24,10 @@ class CodeEditor extends React.Component {
   };
 
   focus = () => {
+<<<<<<< HEAD
+=======
+    console.log("focus editor");
+>>>>>>> 519727c0c7b046237dde30f2c1f1332fe1044160
     this.editor.focus();
   };
 
