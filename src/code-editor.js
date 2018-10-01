@@ -23,6 +23,11 @@ class CodeEditor extends React.Component {
     });
   };
 
+  focus = () => {
+    console.log("focus editor");
+    this.editor.focus();
+  };
+
   render() {
     const { sandpack, resizeEmitter, dispatch } = this.props;
     const { openedPath, files } = sandpack;
@@ -36,8 +41,9 @@ class CodeEditor extends React.Component {
         onChange={this.onChange}
         language={language === "mdx" ? "markdown" : language}
         editorDidMount={editor => {
+          this.editor = editor;
+          editor.focus();
           resizeEmitter.subscribe(() => editor.layout());
-
           actions
             .filter(action => action.keybindings)
             .forEach(action =>
