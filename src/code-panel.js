@@ -15,6 +15,8 @@ class CodePanel extends React.Component {
     userOptions: null
   };
 
+  editorRef = React.createRef();
+
   componentDidMount() {
     this.props.sandpack.openFile("/deck.mdx");
   }
@@ -23,7 +25,9 @@ class CodePanel extends React.Component {
     const { sandpack } = this.props;
     const actionContext = {
       sandpack,
-      setUserOptions: userOptions => this.setState({ userOptions })
+      editor: this.editorRef.current,
+      setUserOptions: (userOptions, callback) =>
+        setTimeout(() => this.setState({ userOptions }, callback), 0)
     };
     action.run(actionContext, payload);
   };
@@ -40,6 +44,7 @@ class CodePanel extends React.Component {
           dispatch={dispatch}
           resizeEmitter={resizeEmitter}
           style={{ flex: 1 }}
+          ref={this.editorRef}
         />
       </FlexColumn>
     );

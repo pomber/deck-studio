@@ -62,11 +62,11 @@ const actions = [
   },
   {
     id: "new-component",
-    run: ({ sandpack, setUserOptions }, payload) => {
+    run: ({ sandpack, setUserOptions, editor }, payload) => {
       const path = "/components/" + payload + ".js";
       sandpack.files[path] = { code: "" };
       sandpack.openFile(path);
-      setUserOptions(null);
+      setUserOptions(null, () => editor.focus());
     }
   },
   {
@@ -90,11 +90,11 @@ const actions = [
   },
   {
     id: "new-code-sample",
-    run: ({ sandpack, setUserOptions }, payload) => {
+    run: ({ sandpack, setUserOptions, editor }, payload) => {
       const path = "/samples/" + payload;
       sandpack.files[path] = { code: "" };
       sandpack.openFile(path);
-      setUserOptions(null);
+      setUserOptions(null, () => editor.focus());
     }
   },
   {
@@ -117,9 +117,9 @@ const actions = [
   },
   {
     id: "go-to-file",
-    run: ({ sandpack, setUserOptions }, payload) => {
+    run: ({ sandpack, setUserOptions, editor }, payload) => {
       sandpack.openFile("/" + payload.label);
-      setUserOptions(null);
+      setUserOptions(null, () => editor.focus());
     }
   },
   {
