@@ -6,13 +6,17 @@ function getDisplayName(WrappedComponent) {
 }
 
 export default function withSandpack(Component) {
-  const WrappedComponent = props => (
+  const WrappedComponent = ({ forwardedRef, ...rest }) => (
     <SandpackConsumer>
-      {sandpack => <Component {...props} sandpack={sandpack} />}
+      {sandpack => (
+        <Component {...rest} sandpack={sandpack} ref={forwardedRef} />
+      )}
     </SandpackConsumer>
   );
 
   WrappedComponent.displayName = `WithSandpack(${getDisplayName(Component)})`;
 
-  return WrappedComponent;
+  return React.forwardRef((props, ref) => (
+    <WrappedComponent {...props} forwardedRef={ref} />
+  ));
 }
