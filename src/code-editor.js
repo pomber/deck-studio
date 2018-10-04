@@ -1,11 +1,10 @@
 import React from "react";
+import MonacoEditor from "react-monaco-editor";
 
 import withSandpack from "./utils/withSandpack";
 import getLanguage from "./utils/language-detector";
 
 import actions from "./actions";
-
-const MonacoEditor = import(/* webpackPrefetch: true */ "react-monaco-editor");
 
 const options = {
   minimap: { enabled: false },
