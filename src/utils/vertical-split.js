@@ -21,9 +21,22 @@ const resizeEmitter = {
 
 window.addEventListener("resize", () => resizeEmitter.trigger());
 
-class VerticalSplit extends React.Component {
+class VerticalSplit extends React.PureComponent {
   state = {
     isDragging: false
+  };
+
+  onDragStarted = () => {
+    this.setState({
+      isDragging: true
+    });
+  };
+
+  onDragFinished = () => {
+    this.setState({
+      isDragging: false
+    });
+    resizeEmitter.trigger();
   };
 
   render() {
@@ -34,17 +47,8 @@ class VerticalSplit extends React.Component {
       <SplitPane
         split="vertical"
         defaultSize={leftSize}
-        onDragStarted={() => {
-          this.setState({
-            isDragging: true
-          });
-        }}
-        onDragFinished={() => {
-          this.setState({
-            isDragging: false
-          });
-          resizeEmitter.trigger();
-        }}
+        onDragStarted={this.onDragStarted}
+        onDragFinished={this.onDragFinished}
       >
         <Pane
           as={left}

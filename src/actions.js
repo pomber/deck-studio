@@ -1,11 +1,8 @@
 import React from "react";
-import { KeyCode, KeyMod } from "monaco-editor";
-
-import prettier from "prettier/standalone";
-import markdownPlugin from "prettier/parser-markdown";
-import babylonPlugin from "prettier/parser-babylon";
 
 import getLanguage from "./utils/language-detector";
+const format = import(/* webpackPrefetch: true */ "./format");
+const { KeyCode, KeyMod } = import(/* webpackPrefetch: true */ "monaco-editor");
 
 const getFiles = sandpack =>
   Object.keys(sandpack.files)
@@ -131,19 +128,16 @@ const actions = [
     run: ({ sandpack }) => {
       const { parser } = getLanguage(sandpack.openedPath);
       const currentCode = sandpack.files[sandpack.openedPath].code;
+      // semi should be false for mdx (see https://github.com/mdx-js/mdx/issues/277)
+      const semi = parser !== "mdx";
 
-      const newCode = prettier.format(currentCode, {
-        parser,
-        plugins: [markdownPlugin, babylonPlugin],
-        // semi should be false for mdx (see https://github.com/mdx-js/mdx/issues/277)
-        semi: parser !== "mdx"
-      });
-
-      sandpack.updateFiles({
-        ...sandpack.files,
-        [sandpack.openedPath]: {
-          code: newCode
-        }
+      format(currentCode, parser, semi).then(newCode => {
+        sandpack.updateFiles({
+          ...sandpack.files,
+          [sandpack.openedPath]: {
+            code: newCode
+          }
+        });
       });
     }
   },
