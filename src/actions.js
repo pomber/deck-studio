@@ -35,8 +35,8 @@ const actions = [
           {
             action: getById("new-code-sample-options"),
             label: "Code Sample (for Code Surfer)"
-          },
-          { action: getById("new-image-options"), label: "Image" }
+          }
+          // { action: getById("new-image-options"), label: "Image" }
         ],
         cancelAction: getById("cancel-options"),
         placeholder: "New ..."
