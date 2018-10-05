@@ -27,7 +27,7 @@ const Picker = ({ dispatch, options }) => (
     onChange={selection => dispatch(selection.action, selection)}
     itemToString={item => (item ? item.label : "")}
     defaultHighlightedIndex={0}
-    onOuterClick={() => dispatch("CANCEL")}
+    onOuterClick={() => dispatch(options.cancelAction)}
     defaultIsOpen
   >
     {({

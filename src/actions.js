@@ -1,11 +1,9 @@
 import React from "react";
 import { KeyCode, KeyMod } from "monaco-editor";
 
-import prettier from "prettier/standalone";
-import markdownPlugin from "prettier/parser-markdown";
-import babylonPlugin from "prettier/parser-babylon";
-
 import getLanguage from "./utils/language-detector";
+
+const formatPromise = import("./format");
 
 const getFiles = sandpack =>
   Object.keys(sandpack.files)
@@ -19,13 +17,17 @@ const getFiles = sandpack =>
         !["package.json", "Dockerfile", ".babelrc"].includes(item.file)
     );
 
+const getById = id => actions.find(action => action.id === id);
+
 const actions = [
+  { id: "cancel-options", run: ({ setUserOptions }) => setUserOptions(null) },
   {
     id: "new-file-options",
     label: "New File...",
     showInMenu: true,
     keybindings: [KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KEY_N],
     shortcutLabel: "Ctrl+Alt+N",
+
     run: ({ setUserOptions }) => {
       setUserOptions({
         items: [
@@ -33,9 +35,10 @@ const actions = [
           {
             action: getById("new-code-sample-options"),
             label: "Code Sample (for Code Surfer)"
-          },
-          { action: getById("new-image-options"), label: "Image" }
+          }
+          // { action: getById("new-image-options"), label: "Image" }
         ],
+        cancelAction: getById("cancel-options"),
         placeholder: "New ..."
       });
     }
@@ -56,6 +59,7 @@ const actions = [
           </span>
         ),
         placeholder: "my-component",
+        cancelAction: getById("cancel-options"),
         doneAction: getById("new-component")
       });
     }
@@ -84,6 +88,7 @@ const actions = [
           </span>
         ),
         placeholder: "my-sample",
+        cancelAction: getById("cancel-options"),
         doneAction: getById("new-code-sample")
       });
     }
@@ -105,6 +110,7 @@ const actions = [
     shortcutLabel: "Ctrl+Alt+P",
     run: ({ sandpack, setUserOptions }) => {
       setUserOptions({
+        cancelAction: getById("cancel-options"),
         items: Object.keys(sandpack.files)
           .map(path => path.slice(1))
           .filter(path => !path.startsWith(".") && path !== "package.json")
@@ -128,22 +134,20 @@ const actions = [
     showInMenu: true,
     keybindings: [KeyMod.CtrlCmd | KeyCode.KEY_S],
     shortcutLabel: "Ctrl+S",
-    run: ({ sandpack }) => {
+    run: async ({ sandpack }) => {
       const { parser } = getLanguage(sandpack.openedPath);
       const currentCode = sandpack.files[sandpack.openedPath].code;
+      // semi should be false for mdx (see https://github.com/mdx-js/mdx/issues/277)
+      const semi = parser !== "mdx";
 
-      const newCode = prettier.format(currentCode, {
-        parser,
-        plugins: [markdownPlugin, babylonPlugin],
-        // semi should be false for mdx (see https://github.com/mdx-js/mdx/issues/277)
-        semi: parser !== "mdx"
-      });
-
-      sandpack.updateFiles({
-        ...sandpack.files,
-        [sandpack.openedPath]: {
-          code: newCode
-        }
+      const format = (await formatPromise).default;
+      format(currentCode, parser, semi).then(newCode => {
+        sandpack.updateFiles({
+          ...sandpack.files,
+          [sandpack.openedPath]: {
+            code: newCode
+          }
+        });
       });
     }
   },
@@ -169,7 +173,5 @@ const actions = [
     }
   }
 ];
-
-const getById = id => actions.find(action => action.id === id);
 
 export default actions;
