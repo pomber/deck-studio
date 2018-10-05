@@ -15,12 +15,14 @@ const options = {
 
 class CodeEditor extends React.Component {
   onChange = value => {
-    this.props.sandpack.updateFiles({
+    const newFiles = {
       ...this.props.sandpack.files,
       [this.props.sandpack.openedPath]: {
         code: value
       }
-    });
+    };
+
+    this.props.sandpack.updateFiles(newFiles);
   };
 
   focus = () => {
