@@ -13,6 +13,7 @@ const paths = require("./paths");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const getCacheIdentifier = require("react-dev-utils/getCacheIdentifier");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+const DotenvPlugin = require("dotenv-webpack");
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -387,7 +388,10 @@ module.exports = {
       fileName: "asset-manifest.json",
       publicPath: publicPath
     }),
-    new MonacoWebpackPlugin()
+    new MonacoWebpackPlugin(),
+    new DotenvPlugin({
+      systemvars: true
+    })
   ],
 
   // Some libraries import Node modules but don't use them in the browser.

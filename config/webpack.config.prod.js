@@ -19,6 +19,7 @@ const getCacheIdentifier = require("react-dev-utils/getCacheIdentifier");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+const DotenvPlugin = require("dotenv-webpack");
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -476,6 +477,9 @@ module.exports = {
       ]
     }),
     new MonacoWebpackPlugin(),
+    new DotenvPlugin({
+      systemvars: true
+    }),
     new BundleAnalyzerPlugin({
       analyzerMode: "static",
       reportFilename: "report.html"

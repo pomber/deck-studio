@@ -13,7 +13,14 @@ class MessageBar extends React.Component {
   render() {
     return (
       <Bar>
-        <a href="github.com">Log in with GitHub</a> to save this deck
+        <a
+          href={`https://github.com/login/oauth/authorize?scope=gist&client_id=${
+            process.env.GH_CLIENT_ID
+          }`}
+        >
+          Log in with GitHub
+        </a>{" "}
+        to save this deck
       </Bar>
     );
   }
