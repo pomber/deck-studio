@@ -4,7 +4,7 @@ import BrowserPreview from "./browser-preview";
 import CodePanel from "./code-panel";
 import { entry } from "./sandbox";
 import TripleVerticalSplit from "./utils/triple-vertical-split";
-import { getFiles, saveFile } from "./files";
+import { saveFile } from "./files";
 import styled from "styled-components";
 
 // TODO this breaks with webpack 4 because of "sideEffects: false" (https://github.com/facebook/create-react-app/issues/5140)
@@ -23,7 +23,7 @@ class App extends React.Component {
   render() {
     return (
       <SandpackProvider
-        files={getFiles()}
+        files={this.props.files}
         onFileChange={(files, sandpack) =>
           saveFile(sandpack, files[sandpack.openedPath].code)
         }
