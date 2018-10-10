@@ -15,7 +15,7 @@ const unescapePath = path => path.replace(/__/g, "/");
 const rIC = requestIdleCallback || (cb => setTimeout(cb, 10));
 const getKey = path => `file:${path}`;
 
-const saveFileAtPath = (path, content) => {
+const saveFileInLocalStorage = (path, content) => {
   const paths = localStorage.getItem("paths").split(",");
   if (!paths.includes(path)) {
     paths.push(path);
@@ -34,7 +34,7 @@ const getFilesFromLocalStorage = async () => {
     rIC(() => {
       const paths = Object.keys(files);
       localStorage.setItem("paths", paths);
-      paths.forEach(path => saveFileAtPath(path, files[path].code));
+      paths.forEach(path => saveFileInLocalStorage(path, files[path].code));
     });
     return files;
   }
@@ -92,10 +92,46 @@ export const forkDeck = async () => {
   return gistId;
 };
 
+const patchGist = async (gistId, files) => {
+  const response = await fetch(`https://api.github.com/gists/${gistId}`, {
+    method: "PATCH",
+    headers: new Headers({
+      authorization: "Bearer " + localStorage["gh-token"]
+    }),
+    body: JSON.stringify({
+      files
+    })
+  });
+  return response.json();
+};
+
+let currentPatchFiles = {};
+let currentPatchTimeout = null;
+const MS_TO_WAIT_FOR_ANOTHER_CHANGE = 10000;
+const saveFileInGist = async (gistId, path, content) => {
+  Object.assign(currentPatchFiles, {
+    [escapePath(path)]: {
+      content
+    }
+  });
+
+  // debounce patches:
+  clearTimeout(currentPatchTimeout);
+  currentPatchTimeout = setTimeout(() => {
+    patchGist(gistId, currentPatchFiles);
+    currentPatchFiles = {};
+    currentPatchTimeout = null;
+  }, MS_TO_WAIT_FOR_ANOTHER_CHANGE);
+};
+
 export const saveFile = async (sandpack, content) => {
-  //TODO save gist
   const path = sandpack.openedPath;
   rIC(() => {
-    saveFileAtPath(path, content);
+    const gistId = localStorage["currentGistId"];
+    if (gistId) {
+      saveFileInGist(gistId, path, content);
+    } else {
+      saveFileInLocalStorage(path, content);
+    }
   });
 };
