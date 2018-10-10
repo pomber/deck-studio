@@ -160,7 +160,7 @@ const actions = [
       // const apiUrl = "http://localhost:3000";
 
       const files = getFiles(sandpack);
-      const popup = window.open("publish");
+      const popup = window.open("/publish");
       fetch(apiUrl, {
         method: "POST",
         body: JSON.stringify(files)
