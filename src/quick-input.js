@@ -14,6 +14,27 @@ const Root = styled.div({
   marginLeft: "-150px"
 });
 
+const LightRoot = styled(Root)`
+  color: rgb(97, 97, 97);
+  background-color: rgb(255, 255, 254);
+  box-shadow: rgb(168, 168, 168) 0px 5px 8px;
+`;
+
+const lightHighlightColor = "#dff0ff";
+
+const DarkRoot = styled(Root)`
+  color: rgb(204, 204, 204);
+  background-color: rgb(30, 30, 30);
+  box-shadow: rgb(0, 0, 0) 0px 5px 8px;
+
+  input {
+    background-color: rgb(60, 60, 60);
+    color: rgb(204, 204, 204);
+    border: none;
+  }
+`;
+const darkHighlightColor = "#062f4a";
+
 const InnerInput = styled.input({
   width: "calc(100% - 8px)",
   margin: "4px",
@@ -38,7 +59,7 @@ const Picker = ({ dispatch, options }) => (
       inputValue,
       highlightedIndex
     }) => (
-      <Root {...getRootProps()}>
+      <DarkRoot {...getRootProps()}>
         <InnerInput
           {...getInputProps()}
           autoFocus
@@ -58,7 +79,8 @@ const Picker = ({ dispatch, options }) => (
                   index,
                   item,
                   style: {
-                    backgroundColor: highlightedIndex === index && "#dff0ff",
+                    backgroundColor:
+                      highlightedIndex === index && darkHighlightColor,
                     height: "22px",
                     paddingLeft: "11px",
                     cursor: "pointer",
@@ -70,7 +92,7 @@ const Picker = ({ dispatch, options }) => (
               </div>
             ))}
         </div>
-      </Root>
+      </DarkRoot>
     )}
   </Downshift>
 );
@@ -80,7 +102,7 @@ class Input extends React.Component {
   render() {
     const { options, dispatch } = this.props;
     return (
-      <Root>
+      <DarkRoot>
         <InnerInput
           autoFocus
           placeholder={options.placeholder}
@@ -94,7 +116,7 @@ class Input extends React.Component {
         <div style={{ padding: "2px 10px" }}>
           {options.label(this.state.text)}
         </div>
-      </Root>
+      </DarkRoot>
     );
   }
 }

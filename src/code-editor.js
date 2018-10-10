@@ -9,8 +9,8 @@ import actions from "./actions";
 const options = {
   minimap: { enabled: false },
   lineNumbers: "on",
-  scrollBeyondLastLine: false
-  // theme: "vs-dark"
+  scrollBeyondLastLine: false,
+  theme: "vs-dark"
 };
 
 class CodeEditor extends React.Component {
