@@ -4,7 +4,7 @@ import BrowserPreview from "./browser-preview";
 import CodePanel from "./code-panel";
 import { entry } from "./sandbox";
 import TripleVerticalSplit from "./utils/triple-vertical-split";
-import { saveFile } from "./files";
+import { saveFile } from "./storage";
 import styled from "styled-components";
 
 // TODO this breaks with webpack 4 because of "sideEffects: false" (https://github.com/facebook/create-react-app/issues/5140)

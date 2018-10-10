@@ -1,28 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { login, isLoggedIn, forkDeck, getFilesFromGist } from "./github-api";
 import "./index.css";
-import { getFiles } from "./files";
+import { login, isLoggedIn, forkDeck, getFiles } from "./storage";
 
 const pathname = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
 
-const renderApp = async files => {
+const renderApp = async gistId => {
+  if (!gistId && isLoggedIn()) {
+    forkLocalDeck();
+  }
+
+  const filesPromise = getFiles(gistId);
   const { default: App } = await import("./app");
+  const files = await filesPromise;
+
   ReactDOM.render(<App files={files} />, document.getElementById("root"));
+};
+
+const forkLocalDeck = async () => {
+  const gistId = await forkDeck();
+  window.history.replaceState(null, null, `/x/${gistId}`);
 };
 
 if (pathname === "/cb/gh") {
   const ghCode = urlParams.get("code");
   login(ghCode).then(() => (window.location = "/"));
-} else if (pathname === "/") {
-  renderApp(getFiles());
-  if (isLoggedIn()) {
-    forkDeck().then(({ id }) =>
-      window.history.replaceState(null, null, `/x/${id}`)
-    );
-  }
-} else if (pathname.startsWith("/x/")) {
-  const id = pathname.slice(3);
-  getFilesFromGist(id).then(files => renderApp(files));
+} else if (pathname === "/" || pathname.startsWith("/x/")) {
+  const gistId = pathname.startsWith("/x/") && pathname.slice(3);
+  renderApp(gistId);
 }
