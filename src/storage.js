@@ -12,7 +12,7 @@ export const login = async ghCode => {
 
 const escapePath = path => path.replace(/\//g, "__");
 const unescapePath = path => path.replace(/__/g, "/");
-const rIC = requestIdleCallback || (cb => setTimeout(cb, 10));
+const rIC = window.requestIdleCallback || (cb => setTimeout(cb, 10));
 const getKey = path => `file:${path}`;
 
 const saveFileInLocalStorage = (path, content) => {
