@@ -107,7 +107,7 @@ const patchGist = async (gistId, files) => {
 
 let currentPatchFiles = {};
 let currentPatchTimeout = null;
-const MS_TO_WAIT_FOR_ANOTHER_CHANGE = 10000;
+const MS_TO_WAIT_FOR_ANOTHER_CHANGE = 5000;
 const saveFileInGist = async (gistId, path, content) => {
   Object.assign(currentPatchFiles, {
     [escapePath(path)]: {

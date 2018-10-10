@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { isLoggedIn } from "./storage";
 
 const Bar = styled.div`
   background: whitesmoke;
@@ -11,6 +12,9 @@ const Bar = styled.div`
 
 class MessageBar extends React.Component {
   render() {
+    if (isLoggedIn()) {
+      return null;
+    }
     return (
       <Bar>
         <a
