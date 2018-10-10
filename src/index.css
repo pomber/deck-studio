@@ -50,3 +50,6 @@
 .Pane {
   overflow: auto;
 }
+.SplitPane {
+  background-color: grey;
+}
