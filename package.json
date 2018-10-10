@@ -1,5 +1,5 @@
 {
-  "name": "deck-studio",
+  "name": "deck-run",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -60,12 +60,17 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "start:lambda": "cross-env BABEL_ENV=development NODE_ENV=development netlify-lambda serve src/lambda",
     "build": "node scripts/build.js",
+    "build:lambda": "cross-env BABEL_ENV=production NODE_ENV=production netlify-lambda build src/lambda",
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
     "babel-plugin-preval": "^3.0.1",
+    "cross-env": "^5.2.0",
+    "dotenv-webpack": "^1.5.7",
     "monaco-editor-webpack-plugin": "./lib/monaco-editor-webpack-plugin",
+    "netlify-lambda": "^0.4.0",
     "raw-loader": "^0.5.1",
     "webpack-bundle-analyzer": "^3.0.2"
   },

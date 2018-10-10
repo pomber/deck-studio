@@ -11,7 +11,7 @@ export default class BrowserPreview extends React.PureComponent {
       <div
         className={`BrowserPreview container ${className}`}
         style={{
-          heigh: "100%",
+          height: "100%",
           display: "flex",
           flexDirection: "column"
         }}
