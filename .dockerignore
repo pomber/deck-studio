@@ -1,5 +1,6 @@
-*
-!public
-!src
-!package.json
-!yarn.lock
+*	
+!public	
+!src	
+!lib	
+!package.json	
+!yarn.lock 
