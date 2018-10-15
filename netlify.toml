@@ -1,0 +1,9 @@
+[build]
+  Command = "yarn build && yarn build:lambda"
+  Functions = "build-lambda"
+  Publish = "build"
+  
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

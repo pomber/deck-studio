@@ -1,0 +1,47 @@
+export { dark as theme } from "mdx-deck/themes";
+import { Image, Appear } from "mdx-deck";
+import { CodeSurfer } from "mdx-deck-code-surfer";
+import nightOwl from "prism-react-renderer/themes/nightOwl";
+import MyComponent from "./components/my-component";
+
+# Hi!
+
+Use the right arrow to move to the next slide  
+(or click the right section of this frame)
+
+---
+
+
+Foo
+
+---
+
+<Image src="https://picsum.photos/800/600/?image=1062" />
+
+---
+
+<MyComponent>Something</MyComponent>
+
+---
+
+Appear:
+
+<ul>
+  <Appear>
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+  </Appear>
+</ul>
+
+---
+
+<CodeSurfer code="console.log(`Hello`);" theme={nightOwl} />
+
+---
+
+Foo
+
+---
+
+Bar

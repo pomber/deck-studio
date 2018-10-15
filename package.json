@@ -1,25 +1,126 @@
 {
-  "name": "deck-studio",
+  "name": "deck-run",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "7.1.0",
+    "@reach/menu-button": "^0.1.7",
+    "@svgr/webpack": "2.4.1",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "9.0.0",
+    "babel-jest": "23.6.0",
+    "babel-loader": "8.0.4",
+    "babel-plugin-named-asset-import": "^0.2.0",
+    "babel-preset-react-app": "^5.0.0",
+    "bfj": "6.1.1",
+    "case-sensitive-paths-webpack-plugin": "2.1.2",
+    "chalk": "2.4.1",
+    "css-loader": "1.0.0",
+    "dotenv": "6.0.0",
+    "dotenv-expand": "4.2.0",
+    "downshift": "^2.2.2",
+    "eslint": "5.6.0",
+    "eslint-config-react-app": "^3.0.0",
+    "eslint-loader": "2.1.1",
+    "eslint-plugin-flowtype": "2.50.1",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-react": "7.11.1",
+    "file-loader": "2.0.0",
+    "fs-extra": "7.0.0",
+    "html-webpack-plugin": "4.0.0-alpha.2",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "23.6.0",
+    "mini-css-extract-plugin": "0.4.3",
     "monaco-editor": "^0.14.3",
+    "optimize-css-assets-webpack-plugin": "5.0.1",
+    "postcss-flexbugs-fixes": "4.1.0",
+    "postcss-loader": "3.0.0",
+    "postcss-preset-env": "6.0.6",
+    "postcss-safe-parser": "4.0.1",
+    "prettier": "./lib/prettier",
     "react": "^16.5.0",
+    "react-app-polyfill": "^0.1.1",
+    "react-dev-utils": "^6.0.1",
     "react-dom": "^16.5.0",
     "react-monaco-editor": "^0.18.0",
-    "react-scripts": "1.1.5",
     "react-smooshpack": "^0.0.49",
-    "react-split-pane": "^0.1.84"
+    "react-split-pane": "^0.1.84",
+    "resolve": "1.8.1",
+    "sass-loader": "7.1.0",
+    "style-loader": "0.23.0",
+    "styled-components": "^4.0.0-beta.9",
+    "terser-webpack-plugin": "1.1.0",
+    "thread-loader": "1.2.0",
+    "url-loader": "1.1.1",
+    "webpack": "4.19.1",
+    "webpack-dev-server": "3.1.9",
+    "webpack-manifest-plugin": "2.0.4",
+    "workbox-webpack-plugin": "3.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "analyze": "node analyze-bundle"
+    "start": "node scripts/start.js",
+    "start:lambda": "cross-env BABEL_ENV=development NODE_ENV=development netlify-lambda serve src/lambda",
+    "build": "node scripts/build.js",
+    "build:lambda": "cross-env BABEL_ENV=production NODE_ENV=production netlify-lambda build src/lambda",
+    "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
+    "babel-plugin-preval": "^3.0.1",
+    "cross-env": "^5.2.0",
+    "dotenv-webpack": "^1.5.7",
+    "monaco-editor-webpack-plugin": "./lib/monaco-editor-webpack-plugin",
+    "netlify-lambda": "^0.4.0",
     "raw-loader": "^0.5.1",
     "webpack-bundle-analyzer": "^3.0.2"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx}",
+      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx}"
+    ],
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   }
 }
